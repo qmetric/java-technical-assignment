@@ -17,26 +17,34 @@ public class Basket {
         this.items.add(item);
     }
 
-    private List<Item> currentItems() {
+    List<Item> items() {
         return Collections.unmodifiableList(items);
     }
 
     public BigDecimal total() {
-        return new SimpleCalculator(currentItems()).total();
+        return new Calculator().calculateTotal();
     }
 
-    class SimpleCalculator {
+    private class Calculator {
         private final List<Item> items;
 
-        SimpleCalculator(final List<Item> items) {
-            this.items = items;
+        Calculator() {
+            this.items = items();
         }
 
-        BigDecimal total() {
+        private BigDecimal subtotal() {
             return items.stream().map(Item::price)
                     .reduce(BigDecimal::add)
                     .orElse(BigDecimal.ZERO)
                     .setScale(2, RoundingMode.HALF_UP);
+        }
+
+        private BigDecimal discounts() {
+            return BigDecimal.ZERO;
+        }
+
+        private BigDecimal calculateTotal() {
+            return subtotal().subtract(discounts());
         }
     }
 }

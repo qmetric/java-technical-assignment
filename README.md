@@ -19,7 +19,9 @@ First and foremost this is an opportunity for you to demonstrate your _software 
 
 Please read through the description carefully and implement a solution that includes __at least one__ of the pricing discount schemes described.
 
-We would like you spend __no more than one hour__ on this task. We have provided this outline Maven project for you to use, the rest is up to you.
+We would like you spend __no more than one hour__ on this task. 
+We have provided this outline Maven project with a simple model for you to use and refactor as you feel appropriate. 
+The rest is up to you.
  
 ### We are looking for...
 
