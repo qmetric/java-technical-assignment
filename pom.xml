@@ -14,7 +14,7 @@
     </properties>
 
     <dependencies>
-        <!-- Please mention in NOTES.md why -->
+        <!-- Please mention in NOTES.md your rationale for any dependencies you add here -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
