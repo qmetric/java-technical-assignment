@@ -10,18 +10,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+import static kata.supermarket.TestData.aPintOfMilk;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BasketTest {
-
-    @DisplayName("basket provides its total value when containing...")
-    @MethodSource
-    @ParameterizedTest(name = "{0}")
-    void basketProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
-        items.forEach(basket::add);
-        assertEquals(new BigDecimal(expectedTotal), basket.total());
-    }
 
     static Stream<Arguments> basketProvidesTotalValue() {
         return Stream.of(
@@ -56,16 +48,12 @@ class BasketTest {
         return Arguments.of("no items", "0.00", Collections.emptyList());
     }
 
-    private static Item aPintOfMilk() {
-        return new Product(new BigDecimal("0.49")).oneOf();
-    }
-
     private static Item aPackOfDigestives() {
-        return new Product(new BigDecimal("1.55")).oneOf();
+        return new Product("Digestives", new BigDecimal("1.55")).oneOf();
     }
 
     private static WeighedProduct aKiloOfAmericanSweets() {
-        return new WeighedProduct(new BigDecimal("4.99"));
+        return new WeighedProduct("AmericanSweets",new BigDecimal("4.99"));
     }
 
     private static Item twoFiftyGramsOfAmericanSweets() {
@@ -73,10 +61,19 @@ class BasketTest {
     }
 
     private static WeighedProduct aKiloOfPickAndMix() {
-        return new WeighedProduct(new BigDecimal("2.99"));
+        return new WeighedProduct("PickAndMix",new BigDecimal("2.99"));
     }
 
     private static Item twoHundredGramsOfPickAndMix() {
         return aKiloOfPickAndMix().weighing(new BigDecimal(".2"));
+    }
+
+    @DisplayName("basket provides its total value when containing...")
+    @MethodSource
+    @ParameterizedTest(name = "{0}")
+    void basketProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
+        final Basket basket = new Basket();
+        items.forEach(basket::add);
+        assertEquals(new BigDecimal(expectedTotal), basket.total());
     }
 }
