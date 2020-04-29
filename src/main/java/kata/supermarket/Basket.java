@@ -1,5 +1,7 @@
 package kata.supermarket;
 
+import kata.supermarket.offers.Offer;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -8,13 +10,19 @@ import java.util.List;
 
 public class Basket {
     private final List<Item> items;
+    private final List<Offer> offers;
 
     public Basket() {
         this.items = new ArrayList<>();
+        this.offers = new ArrayList<>();
     }
 
     public void add(final Item item) {
         this.items.add(item);
+    }
+
+    public void addOffer(final Offer offer) {
+        this.offers.add(offer);
     }
 
     List<Item> items() {
@@ -33,25 +41,31 @@ public class Basket {
         }
 
         private BigDecimal subtotal() {
-            return items.stream().map(Item::price)
+            return scaleCurrency(items.stream().map(Item::price)
                     .reduce(BigDecimal::add)
-                    .orElse(BigDecimal.ZERO)
-                    .setScale(2, RoundingMode.HALF_UP);
+                    .orElse(BigDecimal.ZERO));
         }
 
         /**
          * TODO: This could be a good place to apply the results of
-         *  the discount calculations.
-         *  It is not likely to be the best place to do those calculations.
-         *  Think about how Basket could interact with something
-         *  which provides that functionality.
+         * the discount calculations.
+         * It is not likely to be the best place to do those calculations.
+         * Think about how Basket could interact with something
+         * which provides that functionality.
          */
         private BigDecimal discounts() {
-            return BigDecimal.ZERO;
+            return scaleCurrency(offers.stream()
+                    .map(offer -> offer.applyOffer(items))
+                    .reduce(BigDecimal::add)
+                    .orElse(BigDecimal.ZERO));
         }
 
         private BigDecimal calculate() {
             return subtotal().subtract(discounts());
+        }
+
+        private BigDecimal scaleCurrency(BigDecimal value) {
+            return value.setScale(2, RoundingMode.HALF_UP);
         }
     }
 }

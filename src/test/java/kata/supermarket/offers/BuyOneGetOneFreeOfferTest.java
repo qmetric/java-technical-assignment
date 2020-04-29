@@ -36,4 +36,10 @@ public class BuyOneGetOneFreeOfferTest {
         assertThat(offer.applyOffer(asList(aPintOfMilk(), aPintOfMilk())), is(new BigDecimal("0.49")));
     }
 
+    @Test
+    public void should_apply_discount_for_1_matching_set_of_items() {
+        Offer offer = new BuyOneGetOneFreeOffer(milkProduct().productSku());
+        assertThat(offer.applyOffer(asList(aPintOfMilk(), aPintOfMilk(), aPintOfMilk())), is(new BigDecimal("0.49")));
+    }
+
 }
