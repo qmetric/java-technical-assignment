@@ -29,7 +29,8 @@ class BasketTest {
                 twoPintsOfMilkEligibleForOffer(),
                 fourPintsOfMilkEligibleForOffer(),
                 mixOfProductsSomeEligibleForBogof(),
-                threePacketsOfDigestivesEligibleForOffer()
+                threePacketsOfDigestivesEligibleForOffer(),
+                multipleItemEligibleForMultipleOffers()
         );
     }
 
@@ -55,6 +56,19 @@ class BasketTest {
         return Arguments.of("multi digestives pack eligible for 3 for 2 offer", "3.10",
                 Arrays.asList(aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives()),
                 Collections.singletonList(new BuyThreeForTwoOffer(aPackOfDigestives().productSku()))
+        );
+    }
+
+    private static Arguments multipleItemEligibleForMultipleOffers() {
+        return Arguments.of("multiple items eligible for multiple offers", "3.59",
+                Arrays.asList(
+                        aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives(),
+                        aPintOfMilk(), aPintOfMilk()
+                ),
+                Arrays.asList(
+                        new BuyOneGetOneFreeOffer(milkProduct().productSku()),
+                        new BuyThreeForTwoOffer(aPackOfDigestives().productSku())
+                )
         );
     }
 

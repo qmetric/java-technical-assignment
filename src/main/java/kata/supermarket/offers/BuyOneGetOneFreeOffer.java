@@ -4,9 +4,9 @@ import kata.supermarket.Item;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- *
  * @author Asif Akhtar
  * 29/04/2020 00:29
  */
@@ -22,8 +22,8 @@ public class BuyOneGetOneFreeOffer implements Offer {
             return BigDecimal.ZERO;
         }
 
-        long matchingProducts = items.stream().filter(item -> item.productSku().equals(productSku)).count();
-        int discountable = (int) matchingProducts / 2;
-        return scaleCurrency(BigDecimal.valueOf(discountable).multiply(items.get(0).price()));
+        List<Item> matchingOffers = items.stream().filter(item -> item.productSku().equals(productSku)).collect(Collectors.toList());
+        int discountable = (int) matchingOffers.size() / 2;
+        return scaleCurrency(BigDecimal.valueOf(discountable).multiply(matchingOffers.get(0).price()));
     }
 }
