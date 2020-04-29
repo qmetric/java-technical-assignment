@@ -1,6 +1,7 @@
 package kata.supermarket;
 
 import kata.supermarket.offers.BuyOneGetOneFreeOffer;
+import kata.supermarket.offers.BuyThreeForTwoOffer;
 import kata.supermarket.offers.Offer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,7 +28,8 @@ class BasketTest {
                 multipleItemsPricedByWeight(),
                 twoPintsOfMilkEligibleForOffer(),
                 fourPintsOfMilkEligibleForOffer(),
-                mixOfProductsSomeEligibleForBogof()
+                mixOfProductsSomeEligibleForBogof(),
+                threePacketsOfDigestivesEligibleForOffer()
         );
     }
 
@@ -46,6 +48,13 @@ class BasketTest {
         return Arguments.of("2 pints of milk eligible for BOGOF offer", "0.49",
                 Arrays.asList(aPintOfMilk(), aPintOfMilk()),
                 Collections.singletonList(new BuyOneGetOneFreeOffer(milkProduct().productSku()))
+        );
+    }
+
+    private static Arguments threePacketsOfDigestivesEligibleForOffer() {
+        return Arguments.of("multi digestives pack eligible for 3 for 2 offer", "3.10",
+                Arrays.asList(aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives()),
+                Collections.singletonList(new BuyThreeForTwoOffer(aPackOfDigestives().productSku()))
         );
     }
 

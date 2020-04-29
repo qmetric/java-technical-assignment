@@ -3,6 +3,7 @@ package kata.supermarket.offers;
 import kata.supermarket.Item;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -12,4 +13,8 @@ import java.util.List;
 @FunctionalInterface
 public interface Offer {
     BigDecimal applyOffer(List<Item> items);
+
+    default BigDecimal scaleCurrency(BigDecimal value) {
+        return value.setScale(2, RoundingMode.HALF_UP);
+    }
 }
