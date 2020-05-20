@@ -4,21 +4,21 @@ import kata.supermarket.discount.DiscountScheme;
 
 import java.math.BigDecimal;
 
-public class WeighedProduct implements Product{
+public class CountableProduct implements Product{
 
-    private final BigDecimal pricePerKilo;
+    private final BigDecimal pricePerUnit;
     private DiscountScheme discountScheme;
 
-    public WeighedProduct(final BigDecimal pricePerKilo) {
-        this.pricePerKilo = pricePerKilo;
+    public CountableProduct(final BigDecimal pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
-    BigDecimal pricePerKilo() {
-        return pricePerKilo;
+    BigDecimal pricePerUnit() {
+        return pricePerUnit;
     }
 
-    public Item weighing(final BigDecimal kilos) {
-        return new ItemByWeight(this, kilos);
+    public Item oneOf() {
+        return new ItemByUnit(this);
     }
 
     @Override

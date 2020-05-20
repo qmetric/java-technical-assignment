@@ -1,12 +1,17 @@
 package kata.supermarket;
 
+import kata.supermarket.discount.DiscountScheme;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Basket {
+
     private final List<Item> items;
 
     public Basket() {
@@ -26,6 +31,7 @@ public class Basket {
     }
 
     private class TotalCalculator {
+
         private final List<Item> items;
 
         TotalCalculator() {
@@ -33,21 +39,28 @@ public class Basket {
         }
 
         private BigDecimal subtotal() {
-            return items.stream().map(Item::price)
-                    .reduce(BigDecimal::add)
-                    .orElse(BigDecimal.ZERO)
-                    .setScale(2, RoundingMode.HALF_UP);
+            return items.stream().map(Item::getPrice).reduce(BigDecimal::add).orElse(BigDecimal.ZERO).setScale(2, RoundingMode.HALF_UP);
         }
 
         /**
          * TODO: This could be a good place to apply the results of
-         *  the discount calculations.
-         *  It is not likely to be the best place to do those calculations.
-         *  Think about how Basket could interact with something
-         *  which provides that functionality.
+         * the discount calculations.
+         * It is not likely to be the best place to do those calculations.
+         * Think about how Basket could interact with something
+         * which provides that functionality.
          */
         private BigDecimal discounts() {
-            return BigDecimal.ZERO;
+            Map<DiscountScheme, List<Item>> discountedItemsMap = items.stream()
+                                                                      .filter(item -> item.getProduct().getDiscountScheme() != null)
+                                                                      .collect(Collectors.groupingBy(item -> item.getProduct().getDiscountScheme()));
+
+            BigDecimal totalDiscount = BigDecimal.ZERO;
+
+            for (Map.Entry<DiscountScheme, List<Item>> entry : discountedItemsMap.entrySet()) {
+                totalDiscount = totalDiscount.add(entry.getKey().apply(entry.getValue()));
+            }
+
+            return totalDiscount;
         }
 
         private BigDecimal calculate() {

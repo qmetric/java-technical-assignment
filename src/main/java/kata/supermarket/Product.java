@@ -1,20 +1,13 @@
+// Copyright (c) 2020 Travelex Ltd
+
 package kata.supermarket;
 
-import java.math.BigDecimal;
+import kata.supermarket.discount.DiscountScheme;
 
-public class Product {
+public interface Product {
 
-    private final BigDecimal pricePerUnit;
+    void setDiscountScheme(DiscountScheme discountScheme);
 
-    public Product(final BigDecimal pricePerUnit) {
-        this.pricePerUnit = pricePerUnit;
-    }
+    DiscountScheme getDiscountScheme();
 
-    BigDecimal pricePerUnit() {
-        return pricePerUnit;
-    }
-
-    public Item oneOf() {
-        return new ItemByUnit(this);
-    }
 }

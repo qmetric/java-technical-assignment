@@ -9,14 +9,14 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class WeighedProductTest {
+class WeighedCountableProductTest {
 
     @ParameterizedTest
     @MethodSource
     void itemFromWeighedProductHasExpectedUnitPrice(String pricePerKilo, String weightInKilos, String expectedPrice) {
         final WeighedProduct weighedProduct = new WeighedProduct(new BigDecimal(pricePerKilo));
         final Item weighedItem = weighedProduct.weighing(new BigDecimal(weightInKilos));
-        assertEquals(new BigDecimal(expectedPrice), weighedItem.price());
+        assertEquals(new BigDecimal(expectedPrice), weighedItem.getPrice());
     }
 
     static Stream<Arguments> itemFromWeighedProductHasExpectedUnitPrice() {

@@ -4,13 +4,19 @@ import java.math.BigDecimal;
 
 public class ItemByUnit implements Item {
 
-    private final Product product;
+    private final CountableProduct countableProduct;
 
-    ItemByUnit(final Product product) {
-        this.product = product;
+    public ItemByUnit(final CountableProduct countableProduct) {
+        this.countableProduct = countableProduct;
     }
 
-    public BigDecimal price() {
-        return product.pricePerUnit();
+    public BigDecimal getPrice() {
+        return countableProduct.pricePerUnit();
     }
+
+    @Override
+    public Product getProduct() {
+        return countableProduct;
+    }
+
 }
