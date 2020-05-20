@@ -79,7 +79,7 @@ class BasketTest {
 
     private static List<Item> twoPintOfMilkWithBuyOneGetOneFreeScheme() {
         CountableProduct pintOfMilk = new CountableProduct(new BigDecimal("0.49"));
-        pintOfMilk.setDiscountScheme(new BuyOneGetOneFreeScheme());
+        pintOfMilk.setDiscountScheme(BuyOneGetOneFreeScheme.getInstance());
         Item item1 = pintOfMilk.oneOf();
         Item item2 = pintOfMilk.oneOf();
         return Arrays.asList(item1, item2);
@@ -91,7 +91,7 @@ class BasketTest {
 
     private static List<Item> twoDigestivesWithBuyOneGetOneDiscountScheme() {
         CountableProduct digestives = new CountableProduct(new BigDecimal("1.55"));
-        digestives.setDiscountScheme(new BuyOneGetOneFreeScheme());
+        digestives.setDiscountScheme(BuyOneGetOneFreeScheme.getInstance());
         Item item1 = digestives.oneOf();
         Item item2 = digestives.oneOf();
         return Arrays.asList(item1, item2);
@@ -99,7 +99,7 @@ class BasketTest {
 
     private static Item aDigestivesWithBuyOneGetOneDiscountScheme() {
         CountableProduct digestives = new CountableProduct(new BigDecimal("1.55"));
-        digestives.setDiscountScheme(new BuyOneGetOneFreeScheme());
+        digestives.setDiscountScheme(BuyOneGetOneFreeScheme.getInstance());
 
         return digestives.oneOf();
     }

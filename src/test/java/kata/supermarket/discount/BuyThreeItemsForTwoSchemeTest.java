@@ -12,30 +12,27 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class BuyOneGetOneFreeSchemeTest {
+public class BuyThreeItemsForTwoSchemeTest {
 
     private DiscountScheme discountScheme;
 
     @Before
     public void setUp() {
-        discountScheme = BuyOneGetOneFreeScheme.getInstance();
+        discountScheme = BuyThreeItemsForTwoScheme.getInstance();
     }
 
     @Test
-    public void testApplyForSingleItem() {
+    public void testApplyForLessThanThreeItem() {
         CountableProduct countableProduct = new CountableProduct(BigDecimal.valueOf(2.22));
         countableProduct.setDiscountScheme(discountScheme);
 
-        List<Item> itemList = Collections.singletonList(countableProduct.oneOf());
-
-        Assert.assertEquals(BigDecimal.ZERO, discountScheme.apply(itemList));
+        Assert.assertEquals(BigDecimal.ZERO, discountScheme.apply(Arrays.asList(countableProduct.oneOf(), countableProduct.oneOf())));
     }
 
     @Test
-    public void testApplyForMultipleProductsSingleItem() {
+    public void testApplyForMultipleProductsLessThanThreeItem() {
         CountableProduct product1 = new CountableProduct(BigDecimal.valueOf(2.22));
         product1.setDiscountScheme(discountScheme);
 
@@ -48,7 +45,7 @@ public class BuyOneGetOneFreeSchemeTest {
     }
 
     @Test
-    public void testApplyForMultipleProductsMultipleEvenItems() {
+    public void testApplyForMultipleProductsMultipleItems() {
 
         CountableProduct product1 = new CountableProduct(BigDecimal.valueOf(2.22));
         product1.setDiscountScheme(discountScheme);
@@ -56,7 +53,12 @@ public class BuyOneGetOneFreeSchemeTest {
         CountableProduct product2 = new CountableProduct(BigDecimal.valueOf(2.22));
         product2.setDiscountScheme(discountScheme);
 
-        List<Item> itemList = new ArrayList<>(Arrays.asList(product1.oneOf(), product1.oneOf(), product2.oneOf(), product2.oneOf()));
+        List<Item> itemList = new ArrayList<>(Arrays.asList(product1.oneOf(),
+                                                            product1.oneOf(),
+                                                            product1.oneOf(),
+                                                            product2.oneOf(),
+                                                            product2.oneOf(),
+                                                            product2.oneOf()));
 
         Assert.assertEquals(BigDecimal.valueOf(4.44), discountScheme.apply(itemList));
     }
@@ -70,8 +72,13 @@ public class BuyOneGetOneFreeSchemeTest {
         CountableProduct product2 = new CountableProduct(BigDecimal.valueOf(2.22));
         product2.setDiscountScheme(discountScheme);
 
-        List<Item> itemList =
-                        new ArrayList<>(Arrays.asList(product1.oneOf(), product1.oneOf(), product2.oneOf(), product2.oneOf(), product2.oneOf()));
+        List<Item> itemList = new ArrayList<>(Arrays.asList(product1.oneOf(),
+                                                            product1.oneOf(),
+                                                            product1.oneOf(),
+                                                            product2.oneOf(),
+                                                            product2.oneOf(),
+                                                            product2.oneOf(),
+                                                            product2.oneOf()));
 
         Assert.assertEquals(BigDecimal.valueOf(4.44), discountScheme.apply(itemList));
     }

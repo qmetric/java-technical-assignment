@@ -10,20 +10,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BuyOneGetOneFreeScheme implements DiscountScheme {
+public class BuyThreeItemsForTwoScheme implements DiscountScheme {
 
-    private static BuyOneGetOneFreeScheme INSTANCE;
+    private static BuyThreeItemsForTwoScheme INSTANCE;
 
-    private BuyOneGetOneFreeScheme(){}
+    private BuyThreeItemsForTwoScheme(){}
 
-    public static BuyOneGetOneFreeScheme getInstance() {
+    public static BuyThreeItemsForTwoScheme getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new BuyOneGetOneFreeScheme();
+            INSTANCE = new BuyThreeItemsForTwoScheme();
         }
 
         return INSTANCE;
     }
-
     @Override
     public BigDecimal apply(List<Item> items) {
 
@@ -38,8 +37,8 @@ public class BuyOneGetOneFreeScheme implements DiscountScheme {
 
         for (Map.Entry<Product, List<Item>> productMapEntry : productMap.entrySet()) {
 
-            if (productMapEntry.getValue().size() < 2) {
-                System.out.println("Only one item found for this product. Hence discount cannot be applied.");
+            if (productMapEntry.getValue().size() < 3) {
+                System.out.println("Less than three items found for this product. Hence discount cannot be applied.");
                 continue;
             }
 
@@ -48,7 +47,7 @@ public class BuyOneGetOneFreeScheme implements DiscountScheme {
             totalDiscount = productMapEntry.getValue()
                                            .get(0)
                                            .getPrice()
-                                           .multiply(BigDecimal.valueOf(numberOfItemsToApplyDiscount / 2))
+                                           .multiply(BigDecimal.valueOf(numberOfItemsToApplyDiscount / 3))
                                            .add(totalDiscount);
 
         }
