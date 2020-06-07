@@ -4,19 +4,15 @@ import kata.supermarket.discounts.DiscoutBuyOneGetOneFree;
 
 import java.math.BigDecimal;
 
-abstract class PriceCalcuator {
+public abstract class PriceCalcuator {
 
     private BigDecimal subtotal;
 
     private DiscoutBuyOneGetOneFree discoutBuyOneGetOneFree;
 
-    private void caluateSubTotal(){
+    protected abstract void caluateSubTotal();
 
-    }
-
-    public BigDecimal caluateTotalToPay(){
-        return null;
-    }
+    protected abstract BigDecimal caluateTotalToPay();
 
 
 }
