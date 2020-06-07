@@ -43,20 +43,6 @@ class DiscoutBuyOneGetOneFreeTest {
 
     }
 
-    @Test
-    void shouldReturnTotalDiscount_givenValidItemsBOGOFLarger(){
-
-        List<Item> testList =  new ArrayList();
-        testList.add(createItem(PRODUCT_PRICE_BOGOF));
-        testList.add(createItem(PRODUCT_PRICE_NO_BOGOF));
-        testList.add(createItem(PRODUCT_PRICE_BOGOF));
-
-        BigDecimal result = discoutBuyOneGetOneFree.discount_BuyOneGetOneFree(testList);
-
-        assertThat(result).isEqualTo(PRODUCT_PRICE_BOGOF.add(PRODUCT_PRICE_NO_BOGOF));
-
-    }
-
     private Item createItem(BigDecimal productPrice){
         return new ItemByUnit(createProduct(productPrice));
     }
