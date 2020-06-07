@@ -1,5 +1,7 @@
 package kata.supermarket;
 
+import kata.supermarket.discounts.DiscoutBuyOneGetOneFree;
+import kata.supermarket.discounts.DiscoutBuyOneGetOneFreeImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,13 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BasketTest {
 
+    private final DiscoutBuyOneGetOneFree discount = new DiscoutBuyOneGetOneFreeImpl();
+
     @DisplayName("basket provides its total value when containing...")
     @MethodSource
     @ParameterizedTest(name = "{0}")
     void basketProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
+        final Basket basket = new Basket(discount);
         items.forEach(basket::add);
-        assertEquals(new BigDecimal(expectedTotal), basket.total());
+        assertEquals(new BigDecimal(expectedTotal), basket.caluateTotalToPay());
     }
 
     static Stream<Arguments> basketProvidesTotalValue() {

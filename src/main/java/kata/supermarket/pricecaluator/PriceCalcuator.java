@@ -10,11 +10,11 @@ public abstract class PriceCalcuator {
         this.discoutBuyOneGetOneFree = discoutBuyOneGetOneFree;
     }
 
-    protected BigDecimal sub_Total;
+    protected BigDecimal sub_Total = BigDecimal.ZERO;
 
     protected DiscoutBuyOneGetOneFree discoutBuyOneGetOneFree;
 
-    protected abstract void caluateSubTotal();
+    protected abstract BigDecimal caluateSubTotal();
 
     protected abstract BigDecimal caluateTotalToPay();
 

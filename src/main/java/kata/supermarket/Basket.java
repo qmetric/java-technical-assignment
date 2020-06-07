@@ -25,18 +25,22 @@ public class Basket extends PriceCalcuator {
     }
 
     @Override
-    public void caluateSubTotal(){
+    public BigDecimal caluateSubTotal(){
         items.stream().forEach(e -> foo(e));
+        return sub_Total;
     }
 
     @Override
     public BigDecimal caluateTotalToPay(){
-        return sub_Total.subtract(discoutBuyOneGetOneFree.discount_BuyOneGetOneFree(items));
+
+        BigDecimal total = discoutBuyOneGetOneFree.discount_BuyOneGetOneFree(items);
+
+        return total;
 
     }
 
     private void foo(Item price){
-         sub_Total.add(price.price());
+         sub_Total = sub_Total.add(price.price());
     }
 
 

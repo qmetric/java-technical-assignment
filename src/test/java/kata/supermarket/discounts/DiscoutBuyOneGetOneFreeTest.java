@@ -39,7 +39,7 @@ class DiscoutBuyOneGetOneFreeTest {
 
         BigDecimal result = discoutBuyOneGetOneFree.discount_BuyOneGetOneFree(testList);
 
-        assertThat(result).isEqualTo(PRODUCT_PRICE_BOGOF.multiply(BigDecimal.valueOf(2)));
+        assertThat(result).isEqualTo(PRODUCT_PRICE_BOGOF.add(PRODUCT_PRICE_NO_BOGOF));
 
     }
 
