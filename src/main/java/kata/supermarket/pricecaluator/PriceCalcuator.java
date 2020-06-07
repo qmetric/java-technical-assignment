@@ -6,9 +6,13 @@ import java.math.BigDecimal;
 
 public abstract class PriceCalcuator {
 
-    private BigDecimal subtotal;
+    public PriceCalcuator(DiscoutBuyOneGetOneFree discoutBuyOneGetOneFree){
+        this.discoutBuyOneGetOneFree = discoutBuyOneGetOneFree;
+    }
 
-    private DiscoutBuyOneGetOneFree discoutBuyOneGetOneFree;
+    protected BigDecimal sub_Total;
+
+    protected DiscoutBuyOneGetOneFree discoutBuyOneGetOneFree;
 
     protected abstract void caluateSubTotal();
 

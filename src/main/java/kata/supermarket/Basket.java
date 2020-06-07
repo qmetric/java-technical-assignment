@@ -1,9 +1,9 @@
 package kata.supermarket;
 
+import kata.supermarket.discounts.DiscoutBuyOneGetOneFree;
 import kata.supermarket.pricecaluator.PriceCalcuator;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +11,8 @@ import java.util.List;
 public class Basket extends PriceCalcuator {
     private final List<Item> items;
 
-    public Basket() {
+    public Basket(DiscoutBuyOneGetOneFree discoutBuyOneGetOneFree) {
+        super(discoutBuyOneGetOneFree);
         this.items = new ArrayList<>();
     }
 
@@ -24,11 +25,18 @@ public class Basket extends PriceCalcuator {
     }
 
     @Override
-    public void caluateSubTotal(){}
+    public void caluateSubTotal(){
+        items.stream().forEach(e -> foo(e));
+    }
 
     @Override
     public BigDecimal caluateTotalToPay(){
-        return null;
+        return sub_Total.subtract(discoutBuyOneGetOneFree.discount_BuyOneGetOneFree(items));
+
+    }
+
+    private void foo(Item price){
+         sub_Total.add(price.price());
     }
 
 
